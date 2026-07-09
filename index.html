@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Floatline — 把文字变成桌面字幕 · Turn text into desktop subtitles</title>
+<meta name="description" content="把电子书、博客和长文变成可听、可看的桌面字幕。双语对照，本地优先，轻如羽毛。" />
+<link rel="icon" href="icon.svg" type="image/svg+xml" />
+<style>
+  :root {
+    --font: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'PingFang SC', 'Segoe UI', 'Microsoft YaHei', system-ui, sans-serif;
+    --bg: #eef1f9;
+    --text: #1c2030;
+    --text-2: rgba(28,32,48,.62);
+    --text-3: rgba(28,32,48,.4);
+    --glass: rgba(255,255,255,.55);
+    --glass-strong: rgba(255,255,255,.72);
+    --glass-border: rgba(255,255,255,.65);
+    --shadow: 0 8px 32px rgba(40,50,90,.12), 0 1.5px 4px rgba(40,50,90,.06);
+    --accent: #5b6cff;
+    --accent-grad: linear-gradient(135deg,#5b6cff,#38c6d9);
+    --accent-soft: rgba(91,108,255,.12);
+  }
+  [data-theme='dark'] {
+    --bg: #0e1018;
+    --text: #eef0f8;
+    --text-2: rgba(238,240,248,.6);
+    --text-3: rgba(238,240,248,.36);
+    --glass: rgba(30,34,52,.55);
+    --glass-strong: rgba(34,38,58,.78);
+    --glass-border: rgba(255,255,255,.12);
+    --shadow: 0 8px 32px rgba(0,0,0,.42);
+    --accent: #7c8aff;
+    --accent-grad: linear-gradient(135deg,#7c8aff,#4fd8e8);
+    --accent-soft: rgba(124,138,255,.16);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font); color: var(--text); background: var(--bg);
+    -webkit-font-smoothing: antialiased; overflow-x: hidden;
+  }
+  .ambient { position: fixed; inset: 0; z-index: -1; overflow: hidden; }
+  .ambient i { position: absolute; border-radius: 50%; filter: blur(100px); opacity: .8; }
+  .ambient i:nth-child(1) { width: 60vw; height: 60vw; left: -15vw; top: -20vw; background: radial-gradient(circle,#a5b8ff,transparent 70%); animation: d1 28s ease-in-out infinite alternate; }
+  .ambient i:nth-child(2) { width: 50vw; height: 50vw; right: -15vw; top: 20vh; background: radial-gradient(circle,#ffd6e8,transparent 70%); animation: d2 34s ease-in-out infinite alternate; }
+  .ambient i:nth-child(3) { width: 46vw; height: 46vw; left: 25vw; bottom: -20vw; background: radial-gradient(circle,#b8f0e4,transparent 70%); animation: d1 40s ease-in-out infinite alternate-reverse; }
+  [data-theme='dark'] .ambient i:nth-child(1) { background: radial-gradient(circle,#2b3568,transparent 70%); }
+  [data-theme='dark'] .ambient i:nth-child(2) { background: radial-gradient(circle,#4a2b4e,transparent 70%); }
+  [data-theme='dark'] .ambient i:nth-child(3) { background: radial-gradient(circle,#1d4547,transparent 70%); }
+  @keyframes d1 { to { transform: translate(6vw,4vh) scale(1.08); } }
+  @keyframes d2 { to { transform: translate(-5vw,6vh) scale(.94); } }
+
+  .glass {
+    background: var(--glass);
+    backdrop-filter: blur(28px) saturate(1.7);
+    -webkit-backdrop-filter: blur(28px) saturate(1.7);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow);
+  }
+
+  nav {
+    position: fixed; top: 18px; left: 50%; transform: translateX(-50%);
+    z-index: 10; display: flex; align-items: center; gap: 6px;
+    padding: 9px 12px; border-radius: 20px; width: min(720px, calc(100vw - 32px));
+  }
+  nav .brand { display: flex; align-items: center; gap: 9px; font-weight: 700; font-size: 15px; margin-right: auto; }
+  nav .brand img { width: 30px; height: 30px; border-radius: 9px; }
+  nav a { color: var(--text-2); text-decoration: none; font-size: 13.5px; padding: 7px 11px; border-radius: 10px; transition: .15s; }
+  nav a:hover { background: var(--accent-soft); color: var(--text); }
+  .chip {
+    border: 1px solid var(--glass-border); background: transparent; color: var(--text-2);
+    font: 600 12px var(--font); padding: 7px 11px; border-radius: 10px; cursor: pointer; transition: .15s;
+  }
+  .chip:hover { background: var(--accent-soft); color: var(--text); }
+
+  .hero { max-width: 980px; margin: 0 auto; padding: 150px 24px 60px; text-align: center; }
+  .hero h1 {
+    font-size: clamp(38px, 7vw, 64px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.12;
+  }
+  .hero h1 em {
+    font-style: normal; background: var(--accent-grad);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hero .sub { font-size: clamp(15px, 2.4vw, 19px); color: var(--text-2); margin: 22px auto 0; max-width: 620px; line-height: 1.7; }
+  .cta { margin-top: 34px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px; text-decoration: none; cursor: pointer;
+    font: 600 15px var(--font); padding: 14px 26px; border-radius: 16px; transition: .18s;
+    color: var(--text); border: 1px solid var(--glass-border);
+    background: var(--glass); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  }
+  .btn.primary { background: var(--accent-grad); color: #fff; border-color: transparent; box-shadow: 0 8px 24px rgba(91,108,255,.4); }
+  .btn:hover { transform: translateY(-2px); }
+  .hero .note { margin-top: 14px; font-size: 12.5px; color: var(--text-3); }
+
+  /* demo: fake desktop with float window */
+  .demo { max-width: 860px; margin: 60px auto 0; padding: 0 24px; }
+  .desktop {
+    border-radius: 26px; padding: 28px; position: relative; overflow: hidden;
+    background: linear-gradient(160deg, rgba(165,184,255,.35), rgba(255,214,232,.3) 55%, rgba(184,240,228,.35));
+    border: 1px solid var(--glass-border); box-shadow: var(--shadow);
+    min-height: 340px;
+  }
+  [data-theme='dark'] .desktop { background: linear-gradient(160deg, rgba(43,53,104,.5), rgba(74,43,78,.4) 55%, rgba(29,69,71,.5)); }
+  .doc {
+    position: absolute; border-radius: 14px; background: var(--glass); border: 1px solid var(--glass-border);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); opacity: .6;
+  }
+  .float-demo {
+    position: relative; margin: 60px auto 0; width: min(560px, 100%);
+    border-radius: 20px; padding: 22px 28px 18px; text-align: center;
+    animation: bob 5s ease-in-out infinite;
+  }
+  @keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+  .float-demo .side { font-size: 13px; color: var(--text-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .float-demo .cur { font-size: 21px; font-weight: 600; margin: 8px 0 4px; line-height: 1.5; min-height: 64px; }
+  .float-demo .tr { font-size: 15px; color: var(--text-2); min-height: 24px; }
+  .float-demo .dots { display: flex; gap: 5px; justify-content: center; margin-top: 14px; }
+  .float-demo .dots i { width: 4px; border-radius: 2px; background: var(--accent); opacity: .7; animation: eq 1s ease-in-out infinite alternate; }
+  .float-demo .dots i:nth-child(1) { height: 10px; } .float-demo .dots i:nth-child(2) { height: 16px; animation-delay: .15s; }
+  .float-demo .dots i:nth-child(3) { height: 12px; animation-delay: .3s; } .float-demo .dots i:nth-child(4) { height: 18px; animation-delay: .45s; }
+  .float-demo .dots i:nth-child(5) { height: 9px; animation-delay: .6s; }
+  @keyframes eq { to { transform: scaleY(.4); } }
+
+  section.features { max-width: 980px; margin: 90px auto 0; padding: 0 24px; }
+  h2.sec { text-align: center; font-size: clamp(26px, 4.5vw, 36px); font-weight: 800; letter-spacing: -0.02em; }
+  p.sec-sub { text-align: center; color: var(--text-2); margin-top: 12px; font-size: 15px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-top: 40px; }
+  .card { border-radius: 22px; padding: 26px; transition: transform .2s; }
+  .card:hover { transform: translateY(-4px); }
+  .card .ico {
+    width: 46px; height: 46px; border-radius: 14px; display: grid; place-items: center;
+    background: var(--accent-grad); color: #fff; font-size: 21px; margin-bottom: 16px;
+    box-shadow: 0 6px 16px rgba(91,108,255,.35);
+  }
+  .card h3 { font-size: 16.5px; margin-bottom: 8px; }
+  .card p { font-size: 13.5px; color: var(--text-2); line-height: 1.7; }
+
+  .steps { max-width: 760px; margin: 90px auto 0; padding: 0 24px; }
+  .step { display: flex; gap: 20px; align-items: flex-start; border-radius: 20px; padding: 22px 26px; margin-top: 14px; }
+  .step b.n {
+    flex-shrink: 0; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center;
+    background: var(--accent-grad); color: #fff; font-size: 15px;
+  }
+  .step h3 { font-size: 15.5px; margin-bottom: 5px; }
+  .step p { font-size: 13.5px; color: var(--text-2); line-height: 1.65; }
+
+  .download { max-width: 720px; margin: 100px auto; padding: 0 24px; text-align: center; }
+  .download .panel { border-radius: 28px; padding: 50px 34px; }
+  .download .note2 { margin-top: 16px; font-size: 12.5px; color: var(--text-3); }
+
+  footer { text-align: center; padding: 40px 20px 50px; color: var(--text-3); font-size: 12.5px; }
+  footer a { color: var(--text-2); text-decoration: none; }
+
+  @media (max-width: 640px) {
+    nav a.navlink { display: none; }
+    .float-demo .cur { font-size: 17px; }
+  }
+</style>
+</head>
+<body>
+<div class="ambient"><i></i><i></i><i></i></div>
+
+<nav class="glass">
+  <div class="brand"><img src="icon.svg" alt="" /><span>Floatline</span></div>
+  <a class="navlink" href="#features" data-i18n="navFeatures">功能</a>
+  <a class="navlink" href="#how" data-i18n="navHow">怎么用</a>
+  <a class="navlink" href="#download" data-i18n="navDownload">下载</a>
+  <button class="chip" id="langBtn" title="Language">EN</button>
+  <button class="chip" id="themeBtn" title="Theme">◐</button>
+</nav>
+
+<header class="hero">
+  <h1 data-i18n-html="heroTitle">把<em>电子书和博客</em><br />变成桌面字幕</h1>
+  <p class="sub" data-i18n="heroSub">导入 EPUB、网页文章或任意文本，Floatline 逐句朗读，并在一个永远置顶的液态玻璃浮窗里同步显示当前句 —— 中英双语对照，边工作边听读。</p>
+  <div class="cta">
+    <a class="btn primary" href="#download" data-i18n="ctaDownload">免费下载 macOS 版</a>
+    <a class="btn" href="#how" data-i18n="ctaHow">看看怎么用</a>
+  </div>
+  <p class="note" data-i18n="heroNote">本地优先 · 无需注册 · 安装包 &lt; 10 MB</p>
+
+  <div class="demo">
+    <div class="desktop">
+      <div class="doc" style="left:24px; top:24px; width:38%; height:75%"></div>
+      <div class="doc" style="right:24px; top:60px; width:44%; height:64%"></div>
+      <div class="float-demo glass">
+        <div class="side" id="demoPrev">It is a truth universally acknowledged…</div>
+        <div class="cur" id="demoCur">“You must know that I am thinking of his marrying one of them.”</div>
+        <div class="tr" id="demoTr">“你要知道，我正盘算着他娶她们中的一个呢。”</div>
+        <div class="dots"><i></i><i></i><i></i><i></i><i></i></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="features" id="features">
+  <h2 class="sec" data-i18n="featTitle">听读，不用切窗口</h2>
+  <p class="sec-sub" data-i18n="featSub">为一边工作、一边读书的人设计</p>
+  <div class="grid">
+    <div class="card glass">
+      <div class="ico">📚</div>
+      <h3 data-i18n="f1t">什么都能扔进来</h3>
+      <p data-i18n="f1p">EPUB 电子书、博客链接、Markdown、TXT，或者直接粘贴一段文字。自动解析章节和目录，秒变可听内容。</p>
+    </div>
+    <div class="card glass">
+      <div class="ico">🪟</div>
+      <h3 data-i18n="f2t">真·桌面字幕浮窗</h3>
+      <p data-i18n="f2p">独立系统窗口，永远置顶、可拖动、可调透明度和字号，还有鼠标穿透模式。像桌面歌词，但显示的是你的书。</p>
+    </div>
+    <div class="card glass">
+      <div class="ico">🌐</div>
+      <h3 data-i18n="f3t">中英双语对照</h3>
+      <p data-i18n="f3p">读英文原著时，每一句下面实时显示中文翻译（反之亦然）。翻译逐句缓存，读过的句子不再重复请求。</p>
+    </div>
+    <div class="card glass">
+      <div class="ico">🔒</div>
+      <h3 data-i18n="f4t">本地优先，轻如羽毛</h3>
+      <p data-i18n="f4p">书和进度全部存在本地，不需要账号。用系统自带语音引擎朗读，安装包不到 10 MB，内存占用极低。</p>
+    </div>
+    <div class="card glass">
+      <div class="ico">⏯</div>
+      <h3 data-i18n="f5t">断点续听</h3>
+      <p data-i18n="f5p">每本书自动记住读到哪一句。点开就从上次的位置继续，上一句 / 下一句随时回跳，不怕走神。</p>
+    </div>
+    <div class="card glass">
+      <div class="ico">🌗</div>
+      <h3 data-i18n="f6t">液态玻璃 · 深浅两栖</h3>
+      <p data-i18n="f6p">毛玻璃质感界面，跟随系统自动切换深浅色。中英文界面一键切换。</p>
+    </div>
+  </div>
+</section>
+
+<section class="steps" id="how">
+  <h2 class="sec" data-i18n="howTitle">三步开始</h2>
+  <div class="step glass">
+    <b class="n">1</b>
+    <div><h3 data-i18n="s1t">拖进来</h3><p data-i18n="s1p">把 EPUB 拖进窗口，或粘贴一个博客链接。Floatline 自动解析标题、章节和正文。</p></div>
+  </div>
+  <div class="step glass">
+    <b class="n">2</b>
+    <div><h3 data-i18n="s2t">按下播放</h3><p data-i18n="s2p">逐句朗读，正文同步高亮。语速、声音、双语对照都可以随时调。</p></div>
+  </div>
+  <div class="step glass">
+    <b class="n">3</b>
+    <div><h3 data-i18n="s3t">打开浮窗，去干活</h3><p data-i18n="s3p">字幕浮窗置顶在屏幕上，最小化主窗口继续工作。当前句、翻译、播放控制都在浮窗里。</p></div>
+  </div>
+</section>
+
+<section class="download" id="download">
+  <div class="panel glass">
+    <h2 class="sec" data-i18n="dlTitle">下载 Floatline</h2>
+    <p class="sec-sub" data-i18n="dlSub">macOS 和 Windows · 免费 · 开源</p>
+    <div class="cta">
+      <a class="btn primary" href="https://github.com/Win1011/Floatline/releases" data-i18n="dlMac"> macOS (.dmg)</a>
+      <a class="btn" href="https://github.com/Win1011/Floatline/releases" data-i18n="dlWin">⊞ Windows (.msi)</a>
+    </div>
+    <p class="note2" data-i18n="dlNote">v2.0 · 安装包 &lt; 10 MB · 不联网也能用（翻译功能除外）</p>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Floatline · <a href="https://github.com/Win1011/Floatline">GitHub</a></p>
+</footer>
+
+<script>
+const I18N = {
+  en: {
+    navFeatures: 'Features', navHow: 'How it works', navDownload: 'Download',
+    heroTitle: 'Turn <em>ebooks & blogs</em><br/>into desktop subtitles',
+    heroSub: 'Import an EPUB, a blog post, or any text. Floatline reads it aloud sentence by sentence and shows the current line in an always-on-top liquid-glass panel — with live English–Chinese translation while you work.',
+    ctaDownload: 'Download for macOS — Free', ctaHow: 'See how it works',
+    heroNote: 'Local-first · No account · Installer < 10 MB',
+    featTitle: 'Listen while you work', featSub: 'Built for people who read on the side',
+    f1t: 'Throw anything in', f1p: 'EPUB ebooks, blog URLs, Markdown, TXT, or pasted text. Chapters and tables of contents are parsed automatically.',
+    f2t: 'A real desktop subtitle window', f2p: 'A native always-on-top window: draggable, resizable, adjustable opacity and font size, plus click-through mode. Like desktop lyrics — but it’s your book.',
+    f3t: 'Bilingual EN ⇄ ZH', f3p: 'Reading an English classic? Every sentence gets a live Chinese translation underneath (and vice versa), cached per sentence.',
+    f4t: 'Local-first & featherweight', f4p: 'Books and progress stay on your device, no account needed. Speech uses the built-in system voices. Installer under 10 MB, tiny memory footprint.',
+    f5t: 'Resume anywhere', f5p: 'Every book remembers the exact sentence you stopped at. Jump back or forward a sentence any time your mind drifts.',
+    f6t: 'Liquid glass, light & dark', f6p: 'A frosted-glass interface that follows your system theme. UI available in English and Chinese.',
+    howTitle: 'Three steps',
+    s1t: 'Drop it in', s1p: 'Drag an EPUB into the window or paste a blog URL. Title, chapters and body text are extracted automatically.',
+    s2t: 'Press play', s2p: 'Sentence-by-sentence narration with synchronized highlighting. Adjust speed, voice and bilingual mode any time.',
+    s3t: 'Open the float window & get to work', s3p: 'The subtitle panel stays on top of everything. Current sentence, translation and playback controls, right there.',
+    dlTitle: 'Get Floatline', dlSub: 'macOS & Windows · Free · Open source',
+    dlMac: ' macOS (.dmg)', dlWin: '⊞ Windows (.msi)',
+    dlNote: 'v2.0 · Installer < 10 MB · Works offline (except translation)',
+    demo: [
+      ['It is a truth universally acknowledged…', '“You must know that I am thinking of his marrying one of them.”', '“你要知道，我正盘算着他娶她们中的一个呢。”'],
+      ['“My dear Mr. Bennet,” said his lady…', '“Have you heard that Netherfield Park is let at last?”', '“你听说了吗，尼日斐花园终于租出去了？”'],
+      ['Mr. Bennet replied that he had not.', '“But it is,” returned she; “for Mrs. Long has just been here.”', '“确实租出去了，”她说，“朗太太刚刚来过。”'],
+    ],
+  },
+  zh: {
+    navFeatures: '功能', navHow: '怎么用', navDownload: '下载',
+    heroTitle: '把<em>电子书和博客</em><br/>变成桌面字幕',
+    heroSub: '导入 EPUB、网页文章或任意文本，Floatline 逐句朗读，并在一个永远置顶的液态玻璃浮窗里同步显示当前句 —— 中英双语对照，边工作边听读。',
+    ctaDownload: '免费下载 macOS 版', ctaHow: '看看怎么用',
+    heroNote: '本地优先 · 无需注册 · 安装包 < 10 MB',
+    featTitle: '听读，不用切窗口', featSub: '为一边工作、一边读书的人设计',
+    f1t: '什么都能扔进来', f1p: 'EPUB 电子书、博客链接、Markdown、TXT，或者直接粘贴一段文字。自动解析章节和目录，秒变可听内容。',
+    f2t: '真·桌面字幕浮窗', f2p: '独立系统窗口，永远置顶、可拖动、可调透明度和字号，还有鼠标穿透模式。像桌面歌词，但显示的是你的书。',
+    f3t: '中英双语对照', f3p: '读英文原著时，每一句下面实时显示中文翻译（反之亦然）。翻译逐句缓存，读过的句子不再重复请求。',
+    f4t: '本地优先，轻如羽毛', f4p: '书和进度全部存在本地，不需要账号。用系统自带语音引擎朗读，安装包不到 10 MB，内存占用极低。',
+    f5t: '断点续听', f5p: '每本书自动记住读到哪一句。点开就从上次的位置继续，上一句 / 下一句随时回跳，不怕走神。',
+    f6t: '液态玻璃 · 深浅两栖', f6p: '毛玻璃质感界面，跟随系统自动切换深浅色。中英文界面一键切换。',
+    howTitle: '三步开始',
+    s1t: '拖进来', s1p: '把 EPUB 拖进窗口，或粘贴一个博客链接。Floatline 自动解析标题、章节和正文。',
+    s2t: '按下播放', s2p: '逐句朗读，正文同步高亮。语速、声音、双语对照都可以随时调。',
+    s3t: '打开浮窗，去干活', s3p: '字幕浮窗置顶在屏幕上，最小化主窗口继续工作。当前句、翻译、播放控制都在浮窗里。',
+    dlTitle: '下载 Floatline', dlSub: 'macOS 和 Windows · 免费 · 开源',
+    dlMac: ' macOS (.dmg)', dlWin: '⊞ Windows (.msi)',
+    dlNote: 'v2.0 · 安装包 < 10 MB · 不联网也能用（翻译功能除外）',
+    demo: [
+      ['It is a truth universally acknowledged…', '“You must know that I am thinking of his marrying one of them.”', '“你要知道，我正盘算着他娶她们中的一个呢。”'],
+      ['“My dear Mr. Bennet,” said his lady…', '“Have you heard that Netherfield Park is let at last?”', '“你听说了吗，尼日斐花园终于租出去了？”'],
+      ['Mr. Bennet replied that he had not.', '“But it is,” returned she; “for Mrs. Long has just been here.”', '“确实租出去了，”她说，“朗太太刚刚来过。”'],
+    ],
+  },
+};
+
+let lang = (localStorage.getItem('fl-site-lang')) || ((navigator.language || '').startsWith('zh') ? 'zh' : 'en');
+let theme = localStorage.getItem('fl-site-theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+
+function applyLang() {
+  const d = I18N[lang];
+  document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+  document.querySelectorAll('[data-i18n]').forEach((el) => { const k = el.dataset.i18n; if (d[k]) el.textContent = d[k]; });
+  document.querySelectorAll('[data-i18n-html]').forEach((el) => { const k = el.dataset.i18nHtml; if (d[k]) el.innerHTML = d[k]; });
+  document.getElementById('langBtn').textContent = lang === 'zh' ? 'EN' : '中';
+}
+function applyTheme() { document.documentElement.dataset.theme = theme; }
+
+document.getElementById('langBtn').onclick = () => { lang = lang === 'zh' ? 'en' : 'zh'; localStorage.setItem('fl-site-lang', lang); applyLang(); };
+document.getElementById('themeBtn').onclick = () => { theme = theme === 'dark' ? 'light' : 'dark'; localStorage.setItem('fl-site-theme', theme); applyTheme(); };
+applyLang(); applyTheme();
+
+// rotate demo subtitles
+let di = 0;
+setInterval(() => {
+  di = (di + 1) % I18N[lang].demo.length;
+  const [p, c, t] = I18N[lang].demo[di];
+  const set = (id, v) => { const el = document.getElementById(id); el.style.opacity = 0; setTimeout(() => { el.textContent = v; el.style.opacity = 1; }, 250); };
+  ['demoPrev','demoCur','demoTr'].forEach((id) => document.getElementById(id).style.transition = 'opacity .25s');
+  set('demoPrev', p); set('demoCur', c); set('demoTr', t);
+}, 4200);
+</script>
+</body>
+</html>
