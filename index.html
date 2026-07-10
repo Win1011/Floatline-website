@@ -6,6 +6,7 @@
 <title>Floatline — 把文字变成桌面字幕 · Turn text into desktop subtitles</title>
 <meta name="description" content="把电子书、博客和长文变成可听、可看的桌面字幕。微软神经语音朗读，中英双语对照，本地优先，仅 6MB。" />
 <link rel="icon" href="icon.svg" type="image/svg+xml" />
+<script>/* mark JS availability before any styles hide content */document.documentElement.classList.add('js');</script>
 <style>
   :root {
     --font: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang SC', 'Segoe UI', 'Microsoft YaHei', system-ui, sans-serif;
@@ -219,9 +220,11 @@
   h2.sec { text-align: center; font-size: clamp(30px, 4.6vw, 44px); font-weight: 830; letter-spacing: -.03em; margin-top: 12px; }
   p.sec-sub { text-align: center; color: var(--text-2); margin: 14px auto 0; font-size: 15.5px; max-width: 540px; line-height: 1.7; }
 
-  /* reveal on scroll */
-  .rv { opacity: 0; transform: translateY(26px); transition: opacity .7s cubic-bezier(.2,.65,.3,1), transform .7s cubic-bezier(.2,.65,.3,1); }
-  .rv.in { opacity: 1; transform: none; }
+  /* reveal on scroll — content is only hidden when JS is confirmed working,
+     and a CSS fallback un-hides everything after 2s no matter what */
+  html.js .rv { opacity: 0; transform: translateY(26px); transition: opacity .7s cubic-bezier(.2,.65,.3,1), transform .7s cubic-bezier(.2,.65,.3,1); animation: rv-safety 0s 2s forwards; }
+  html.js .rv.in { opacity: 1; transform: none; }
+  @keyframes rv-safety { to { opacity: 1; transform: none; } }
 
   /* ===== bento ===== */
   .bento { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; margin-top: 46px; }
@@ -506,8 +509,13 @@ const I18N = {
   },
 };
 
-let lang = localStorage.getItem('fl-site-lang') || ((navigator.language || '').startsWith('zh') ? 'zh' : 'en');
-let theme = localStorage.getItem('fl-site-theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+/* localStorage throws in sandboxed iframes / strict privacy modes — never let it kill the page */
+const store = {
+  get(k) { try { return localStorage.getItem(k); } catch { return null; } },
+  set(k, v) { try { localStorage.setItem(k, v); } catch { /* ignore */ } },
+};
+let lang = store.get('fl-site-lang') || ((navigator.language || '').startsWith('zh') ? 'zh' : 'en');
+let theme = store.get('fl-site-theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
 
 function applyLang() {
   const d = I18N[lang];
@@ -517,15 +525,19 @@ function applyLang() {
   document.getElementById('langBtn').textContent = lang === 'zh' ? 'EN' : '中';
 }
 function applyTheme() { document.documentElement.dataset.theme = theme; }
-document.getElementById('langBtn').onclick = () => { lang = lang === 'zh' ? 'en' : 'zh'; localStorage.setItem('fl-site-lang', lang); applyLang(); };
-document.getElementById('themeBtn').onclick = () => { theme = theme === 'dark' ? 'light' : 'dark'; localStorage.setItem('fl-site-theme', theme); applyTheme(); };
+document.getElementById('langBtn').onclick = () => { lang = lang === 'zh' ? 'en' : 'zh'; store.set('fl-site-lang', lang); applyLang(); };
+document.getElementById('themeBtn').onclick = () => { theme = theme === 'dark' ? 'light' : 'dark'; store.set('fl-site-theme', theme); applyTheme(); };
 applyLang(); applyTheme();
 
 /* ================= scroll reveal ================= */
-const io = new IntersectionObserver((entries) => {
-  entries.forEach((e, i) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-}, { threshold: 0.12 });
-document.querySelectorAll('.rv').forEach((el, i) => { el.style.transitionDelay = `${(i % 4) * 70}ms`; io.observe(el); });
+if ('IntersectionObserver' in window) {
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.rv').forEach((el, i) => { el.style.transitionDelay = `${(i % 4) * 70}ms`; io.observe(el); });
+} else {
+  document.querySelectorAll('.rv').forEach((el) => el.classList.add('in'));
+}
 
 /* ================= bento spotlight ================= */
 document.querySelectorAll('.cell').forEach((c) => {
