@@ -122,6 +122,13 @@
     font-style: normal;
     background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
   }
+  /* typewriter rotating word */
+  .type-wrap { white-space: nowrap; }
+  .type { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; font-style: normal; }
+  .caret { display: inline-block; width: 3px; height: .78em; margin-left: 4px; border-radius: 2px;
+    background: var(--accent); vertical-align: -0.04em; box-shadow: 0 0 10px var(--accent);
+    animation: blink 1.05s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
   .hero .sub { font-size: clamp(15px, 2.2vw, 18.5px); color: var(--text-2); margin: 24px auto 0; max-width: 640px; line-height: 1.75; }
   .cta { margin-top: 36px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
   .btn {
@@ -305,7 +312,7 @@
   footer a:hover { color: var(--accent); }
 
   @media (prefers-reduced-motion: reduce) {
-    .aurora i, .float-demo, .eq i, .btn.primary::after, .marquee .track, .dl-panel::before, .badge .dot { animation: none !important; }
+    .aurora i, .float-demo, .eq i, .btn.primary::after, .marquee .track, .dl-panel::before, .badge .dot, .caret { animation: none !important; }
     .rv { opacity: 1; transform: none; transition: none; }
   }
   @media (max-width: 640px) { nav a.navlink { display: none; } }
@@ -325,8 +332,11 @@
 </nav>
 
 <header class="hero">
-  <div class="badge rv"><span class="dot"></span><span data-i18n="badge">v2.0 · 微软神经语音 · 中英双语</span></div>
-  <h1 class="rv" data-i18n-html="heroTitle">让每一本书<br />浮在<em>你的桌面上</em></h1>
+  <div class="badge rv"><span class="dot"></span><span data-i18n="badge">让阅读，变成聆听</span></div>
+  <h1 class="hero-title rv">
+    <span data-i18n="heroPre"></span><span class="type-wrap"><span id="typeWord" class="type"></span><span class="caret"></span></span><span data-i18n="heroComma"></span><br />
+    <span data-i18n="heroPost"></span><em data-i18n="heroEm"></em>
+  </h1>
   <p class="sub rv" data-i18n="heroSub">把 EPUB、博客文章或任意文本扔进来，Floatline 用自然人声逐句朗读，一个永远置顶的液态玻璃浮窗同步显示当前句和实时翻译——边工作，边听读。</p>
   <div class="cta rv">
     <a class="btn primary" href="https://github.com/Win1011/Floatline/releases" data-i18n="ctaDownload">免费下载 macOS 版</a>
@@ -415,7 +425,8 @@
     <div class="track" id="marqueeTrack">
       <span class="tag">📚 EPUB</span><span class="tag">🔗 <span data-i18n="tagBlog">博客链接</span></span>
       <span class="tag">📝 Markdown</span><span class="tag">📄 TXT</span><span class="tag">📋 <span data-i18n="tagPaste">粘贴文本</span></span>
-      <span class="tag">🌐 HTML</span><span class="tag">🗂 <span data-i18n="tagMulti">批量导入</span></span>
+      <span class="tag">🌐 HTML</span><span class="tag">🎧 <span data-i18n="tagPodcast">播客</span></span>
+      <span class="tag">🎙 <span data-i18n="tagAudio">音频转写</span></span><span class="tag">🗂 <span data-i18n="tagMulti">批量导入</span></span>
       <span class="tag">🌗 <span data-i18n="tagTheme">深浅色</span></span><span class="tag">🀄️ / 🅰️ <span data-i18n="tagUI">双语界面</span></span>
     </div>
   </div>
@@ -453,9 +464,9 @@
 const I18N = {
   zh: {
     navFeatures: '功能', navHow: '怎么用', navDownload: '下载',
-    badge: 'v2.0 · 微软神经语音 · 中英双语',
-    heroTitle: '让每一本书<br/>浮在<em>你的桌面上</em>',
-    heroSub: '把 EPUB、博客文章或任意文本扔进来，Floatline 用自然人声逐句朗读，一个永远置顶的液态玻璃浮窗同步显示当前句和实时翻译——边工作，边听读。',
+    badge: '让阅读，变成聆听',
+    heroPre: '让你的', heroComma: '', heroPost: '浮在', heroEm: '你的桌面上',
+    heroSub: '把 EPUB、博客、播客或任意文本扔进来，Floatline 用自然人声逐句朗读，一个永远置顶的液态玻璃浮窗同步显示当前句和实时翻译——边工作，边听读。',
     ctaDownload: '免费下载 macOS 版', ctaHow: '看看怎么用 ↓',
     heroNote: '仅 6 MB · 本地优先 · 无需注册 · 免费语音',
     mockToc: '目录',
@@ -470,6 +481,7 @@ const I18N = {
     f6t: '断点续听 + 点句即播', f6p: '每本书精确记住读到哪一句，点开即续。正文里点任何一句，就从那句开始朗读；空格播放暂停，方向键上一句/下一句。',
     artResume1: '《黑客与画家》 · 第 8 章 · 31%', artResume2: '继续 ▸',
     tagBlog: '博客链接', tagPaste: '粘贴文本', tagMulti: '批量导入', tagTheme: '深浅色', tagUI: '双语界面',
+    tagPodcast: '播客', tagAudio: '音频转写',
     howKicker: 'HOW IT WORKS', howTitle: '三步，把书搬上桌面',
     s1t: '扔进来', s1p: '把 EPUB 拖进窗口，或粘贴一个博客链接。章节、目录、封面自动解析——连 InDesign 导出的单文件电子书也能按目录拆章。',
     s2t: '按下播放', s2p: '自然人声逐句朗读，正文同步高亮滚动，每句下面是实时翻译。语速、声音随时换，还能试听。',
@@ -481,9 +493,9 @@ const I18N = {
   },
   en: {
     navFeatures: 'Features', navHow: 'How it works', navDownload: 'Download',
-    badge: 'v2.0 · Microsoft neural voices · Bilingual',
-    heroTitle: 'Every book, floating<br/><em>on your desktop</em>',
-    heroSub: 'Drop in an EPUB, a blog post, or any text. Floatline reads it aloud with natural neural voices while an always-on-top liquid-glass panel shows the current sentence and its live translation — listen while you work.',
+    badge: 'Turn reading into listening',
+    heroPre: 'Every ', heroComma: ',', heroPost: 'floating ', heroEm: 'on your desktop',
+    heroSub: 'Drop in an EPUB, a blog, a podcast, or any text. Floatline reads it aloud with natural neural voices while an always-on-top liquid-glass panel shows the current sentence and its live translation — listen while you work.',
     ctaDownload: 'Download for macOS — Free', ctaHow: 'See how it works ↓',
     heroNote: 'Only 6 MB · Local-first · No account · Free voices',
     mockToc: 'Chapters',
@@ -498,6 +510,7 @@ const I18N = {
     f6t: 'Resume + click-to-play', f6p: 'Every book remembers the exact sentence. Click any sentence in the text to start there; Space to play/pause, arrows to jump.',
     artResume1: 'Hackers & Painters · Ch. 8 · 31%', artResume2: 'Continue ▸',
     tagBlog: 'Blog URLs', tagPaste: 'Pasted text', tagMulti: 'Batch import', tagTheme: 'Light & dark', tagUI: 'Bilingual UI',
+    tagPodcast: 'Podcasts', tagAudio: 'Audio → text',
     howKicker: 'HOW IT WORKS', howTitle: 'Three steps to your desktop',
     s1t: 'Drop it in', s1p: 'Drag an EPUB in or paste a blog URL. Chapters, TOC and cover are parsed automatically — even single-file InDesign ebooks get split by their anchors.',
     s2t: 'Press play', s2p: 'Natural narration sentence by sentence, synchronized highlighting, live translation under each line. Swap voice and speed any time.',
@@ -520,13 +533,51 @@ let theme = store.get('fl-site-theme') || (matchMedia('(prefers-color-scheme: da
 function applyLang() {
   const d = I18N[lang];
   document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
-  document.querySelectorAll('[data-i18n]').forEach((el) => { const k = el.dataset.i18n; if (d[k]) el.textContent = d[k]; });
-  document.querySelectorAll('[data-i18n-html]').forEach((el) => { const k = el.dataset.i18nHtml; if (d[k]) el.innerHTML = d[k]; });
+  document.querySelectorAll('[data-i18n]').forEach((el) => { const k = el.dataset.i18n; if (d[k] !== undefined) el.textContent = d[k]; });
+  document.querySelectorAll('[data-i18n-html]').forEach((el) => { const k = el.dataset.i18nHtml; if (d[k] !== undefined) el.innerHTML = d[k]; });
   document.getElementById('langBtn').textContent = lang === 'zh' ? 'EN' : '中';
+  restartType();
 }
 function applyTheme() { document.documentElement.dataset.theme = theme; }
 document.getElementById('langBtn').onclick = () => { lang = lang === 'zh' ? 'en' : 'zh'; store.set('fl-site-lang', lang); applyLang(); };
 document.getElementById('themeBtn').onclick = () => { theme = theme === 'dark' ? 'light' : 'dark'; store.set('fl-site-theme', theme); applyTheme(); };
+
+/* ================= typewriter rotating word ================= */
+/* the hero word types out, holds, deletes, and cycles through the formats we
+   support — book → blog → podcast → article → EPUB → WAV → … */
+const twReduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const TYPE_WORDS = {
+  zh: ['书', '博客', '播客', '文章', 'EPUB', 'WAV'],
+  en: ['book', 'blog', 'podcast', 'article', 'EPUB', 'WAV'],
+};
+let twWord = 0, twChar = 0, twDeleting = false, twTimer = null;
+function typeLoop() {
+  const el = document.getElementById('typeWord');
+  if (!el) return;
+  const words = TYPE_WORDS[lang];
+  const full = words[twWord % words.length];
+  if (!twDeleting) {
+    twChar++;
+    el.textContent = full.slice(0, twChar);
+    if (twChar >= full.length) { twDeleting = true; twTimer = setTimeout(typeLoop, 1700); return; }
+    twTimer = setTimeout(typeLoop, 115);
+  } else {
+    twChar--;
+    el.textContent = full.slice(0, twChar);
+    if (twChar <= 0) { twDeleting = false; twWord++; twTimer = setTimeout(typeLoop, 320); return; }
+    twTimer = setTimeout(typeLoop, 55);
+  }
+}
+function restartType() {
+  clearTimeout(twTimer);
+  const el = document.getElementById('typeWord');
+  if (!el) return;
+  twWord = 0; twChar = 0; twDeleting = false;
+  if (twReduce) { el.textContent = TYPE_WORDS[lang][0]; return; } // static word, no animation
+  el.textContent = '';
+  typeLoop();
+}
+
 applyLang(); applyTheme();
 
 /* ================= scroll reveal ================= */
