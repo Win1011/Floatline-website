@@ -383,7 +383,7 @@
     <button class="btn" type="button" data-buy data-i18n="ctaBuy">购买永久版</button>
     <a class="btn" href="#how" data-i18n="ctaHow">看看怎么用 ↓</a>
   </div>
-  <p class="note rv" data-i18n="heroNote">完整试用 7 天 · 本地优先 · 无需注册 · 免费语音</p>
+  <p class="note rv" data-i18n="heroNote">完整试用 7 天 · 本地优先 · 无需注册 · 内置语音</p>
 
   <div class="stage rv">
     <div class="desktop" id="tiltCard">
@@ -433,7 +433,7 @@
         <span class="voice-chip"><i></i>Aria</span><span class="voice-chip"><i></i>Jenny</span>
         <span class="voice-chip"><i></i>Guy</span>
       </div>
-      <h3 data-i18n="f3t">自然人声，免费</h3>
+      <h3 data-i18n="f3t">内置自然语音</h3>
       <p data-i18n="f3p">微软神经语音逐句朗读，不是机器逐字念。离线自动回退系统语音。</p>
     </div>
     <div class="cell c-2 rv">
@@ -517,7 +517,7 @@
     <details class="rv"><summary data-i18n="faqDevicesQ">可以用几台电脑？</summary><p data-i18n="faqDevicesA">最多同时激活 2 台 Mac 或 Windows 设备。换电脑前可在设置里停用旧设备。</p></details>
     <details class="rv"><summary data-i18n="faqOfflineQ">断网还能使用吗？</summary><p data-i18n="faqOfflineA">可以。已验证的永久许可证提供 14 天离线宽限，重新联网后会自动验证。</p></details>
     <details class="rv"><summary data-i18n="faqRefundQ">退款后会怎样？</summary><p data-i18n="faqRefundA">退款后许可证会失效，但本地书库和进度不会被删除。</p></details>
-    <details class="rv"><summary data-i18n="faqSourceQ">源码是 MIT，为什么官方版收费？</summary><p data-i18n="faqSourceA">仓库源码继续遵循 MIT；付费购买的是官方签名安装包、便捷激活、后续更新与支持。开发者仍可按 MIT 自行构建源码。</p></details>
+    <details class="rv"><summary data-i18n="faqSourceQ">Floatline 是免费或开源软件吗？</summary><p data-i18n="faqSourceA">不是。Floatline 是付费专有软件，提供 7 天完整试用；试用结束后需要购买永久许可证才能继续使用完整功能。应用源码不公开，也不采用开源许可证。</p></details>
   </div>
 </section>
 
@@ -562,13 +562,13 @@ const I18N = {
     heroPre: '让你的', heroComma: '', heroPost: '浮在', heroEm: '你的桌面上',
     heroSub: '把 EPUB、博客、播客或任意文本扔进来，Floatline 用自然人声逐句朗读，一个永远置顶的液态玻璃浮窗同步显示当前句和实时翻译——边工作，边听读。',
     ctaDownload: '查看发布进度', ctaBuy: '购买永久版', ctaHow: '看看怎么用 ↓',
-    heroNote: '完整试用 7 天 · 本地优先 · 无需注册 · 免费语音',
+    heroNote: '完整试用 7 天 · 本地优先 · 无需注册 · 内置语音',
     mockToc: '目录',
     featKicker: 'FEATURES', featTitle: '听读，不用切窗口', featSub: '为一边工作、一边阅读的人设计的每一个细节',
     artFloatLine: 'The girls <b>grieved over such a number of ladies</b>…',
     f1t: '真 · 桌面字幕浮窗', f1p: '独立系统窗口，原生毛玻璃材质，永远置顶。拖动、左右拉调宽度、上下拉调字号、透明度、鼠标穿透——位置和大小都会被记住。',
     f2t: '轻如羽毛', f2p: 'Rust + 系统 WebView，没有 Electron 的臃肿。', f2sub: '安装包体积 · 内存占用 ~80MB',
-    f3t: '自然人声，免费', f3p: '微软神经语音逐句朗读，不是机器逐字念。离线自动回退系统语音。',
+    f3t: '内置自然语音', f3p: '微软神经语音逐句朗读，不是机器逐字念。离线自动回退系统语音。',
     f4t: '中英双语对照', f4p: '每一句下面实时显示翻译，逐句本地缓存，读过的句子不再重复请求。',
     f5t: '三种浮窗模式', f5p: '桌面歌词式单行、只看当前句、或带上下文——双击浮窗即可播放暂停。',
     modeMini: '单行', modeMin: '极简', modeCtx: '上下文',
@@ -584,7 +584,7 @@ const I18N = {
     priceLabel: '限时早鸟价', priceNow: '¥49', priceLater: '正式价 ¥68', priceDesc: '一个永久许可证，最多同时激活 2 台 macOS 或 Windows 设备。', priceTrial: '查看发布进度',
     priceFeature1: '全部功能永久使用', priceFeature2: '同时激活 2 台设备，可停用后换电脑', priceFeature3: 'Apple Pay、微信支付、银行卡等方式由结账页按地区提供', priceFeature4: '短暂断网可继续使用，书库和进度始终保留',
     checkoutPending: '购买通道正在开通',
-    faqKicker: 'FAQ', faqTitle: '购买前，你可能想知道', faqTrialQ: '7 天后会删除我的书和进度吗？', faqTrialA: '不会。试用结束只会暂停导入、阅读、播放和字幕浮窗，书库与阅读进度一直保留。', faqDevicesQ: '可以用几台电脑？', faqDevicesA: '最多同时激活 2 台 Mac 或 Windows 设备。换电脑前可在设置里停用旧设备。', faqOfflineQ: '断网还能使用吗？', faqOfflineA: '可以。已验证的永久许可证提供 14 天离线宽限，重新联网后会自动验证。', faqRefundQ: '退款后会怎样？', faqRefundA: '退款后许可证会失效，但本地书库和进度不会被删除。', faqSourceQ: '源码是 MIT，为什么官方版收费？', faqSourceA: '仓库源码继续遵循 MIT；付费购买的是官方签名安装包、便捷激活、后续更新与支持。开发者仍可按 MIT 自行构建源码。',
+    faqKicker: 'FAQ', faqTitle: '购买前，你可能想知道', faqTrialQ: '7 天后会删除我的书和进度吗？', faqTrialA: '不会。试用结束只会暂停导入、阅读、播放和字幕浮窗，书库与阅读进度一直保留。', faqDevicesQ: '可以用几台电脑？', faqDevicesA: '最多同时激活 2 台 Mac 或 Windows 设备。换电脑前可在设置里停用旧设备。', faqOfflineQ: '断网还能使用吗？', faqOfflineA: '可以。已验证的永久许可证提供 14 天离线宽限，重新联网后会自动验证。', faqRefundQ: '退款后会怎样？', faqRefundA: '退款后许可证会失效，但本地书库和进度不会被删除。', faqSourceQ: 'Floatline 是免费或开源软件吗？', faqSourceA: '不是。Floatline 是付费专有软件，提供 7 天完整试用；试用结束后需要购买永久许可证才能继续使用完整功能。应用源码不公开，也不采用开源许可证。',
     dlKicker: 'DOWNLOAD', dlTitle: '现在就开始听读', dlSub: 'macOS（Apple Silicon）· Windows 构建即将到来 · 完整试用 7 天',
     dlMac: '正式安装包审核后发布', dlSrc: 'GitHub',
     dlNote: '支付审核与正式签名完成后，在公开 GitHub Releases 发布',
@@ -596,13 +596,13 @@ const I18N = {
     heroPre: 'Every ', heroComma: ',', heroPost: 'floating ', heroEm: 'on your desktop',
     heroSub: 'Drop in an EPUB, a blog, a podcast, or any text. Floatline reads it aloud with natural neural voices while an always-on-top liquid-glass panel shows the current sentence and its live translation — listen while you work.',
     ctaDownload: 'View release status', ctaBuy: 'Buy lifetime', ctaHow: 'See how it works ↓',
-    heroNote: '7-day full trial · Local-first · No account · Free voices',
+    heroNote: '7-day full trial · Local-first · No account · Built-in voices',
     mockToc: 'Chapters',
     featKicker: 'FEATURES', featTitle: 'Listen without switching windows', featSub: 'Every detail designed for reading on the side',
     artFloatLine: 'The girls <b>grieved over such a number of ladies</b>…',
     f1t: 'A real desktop subtitle window', f1p: 'A native always-on-top window with real frosted glass. Drag it, pull sideways for width, pull vertically for font size, opacity, click-through — position and size are remembered.',
     f2t: 'Featherweight', f2p: 'Rust + system WebView. None of the Electron bloat.', f2sub: 'installer size · ~80MB RAM',
-    f3t: 'Natural voices, free', f3p: 'Microsoft neural voices read sentence by sentence — not a robot spelling words. Falls back to system voices offline.',
+    f3t: 'Built-in natural voices', f3p: 'Microsoft neural voices read sentence by sentence — not a robot spelling words. Falls back to system voices offline.',
     f4t: 'Bilingual EN ⇄ ZH', f4p: 'A live translation under every sentence, cached locally so nothing is fetched twice.',
     f5t: 'Three float modes', f5p: 'Desktop-lyrics single line, current sentence only, or with context — double-click the panel to play/pause.',
     modeMini: 'Line', modeMin: 'Minimal', modeCtx: 'Context',
@@ -618,7 +618,7 @@ const I18N = {
     priceLabel: 'LIMITED EARLY BIRD', priceNow: '$6.99', priceLater: '$9.99 later', priceDesc: 'One lifetime license for up to 2 active macOS or Windows devices.', priceTrial: 'View release status',
     priceFeature1: 'Every feature, forever', priceFeature2: '2 active devices; deactivate one when changing computers', priceFeature3: 'Apple Pay, WeChat Pay, cards, and other methods appear by region in checkout', priceFeature4: 'Offline grace for short outages; your library and progress always stay local',
     checkoutPending: 'Checkout is being activated',
-    faqKicker: 'FAQ', faqTitle: 'Before you buy', faqTrialQ: 'Will my books or progress be deleted after 7 days?', faqTrialA: 'No. Trial expiry pauses importing, reading, playback, and the float window. Your library and progress remain intact.', faqDevicesQ: 'How many computers can I use?', faqDevicesA: 'Up to 2 active Mac or Windows devices. Deactivate the old device in Settings before switching computers.', faqOfflineQ: 'Does it work offline?', faqOfflineA: 'Yes. A verified lifetime license has a 14-day offline grace period and validates again when you reconnect.', faqRefundQ: 'What happens after a refund?', faqRefundA: 'The license is revoked, but Floatline never deletes your local library or progress.', faqSourceQ: 'The source is MIT — why is the official build paid?', faqSourceA: 'The repository remains MIT. You pay for official signed builds, convenient activation, updates, and support; developers may still build the MIT source themselves.',
+    faqKicker: 'FAQ', faqTitle: 'Before you buy', faqTrialQ: 'Will my books or progress be deleted after 7 days?', faqTrialA: 'No. Trial expiry pauses importing, reading, playback, and the float window. Your library and progress remain intact.', faqDevicesQ: 'How many computers can I use?', faqDevicesA: 'Up to 2 active Mac or Windows devices. Deactivate the old device in Settings before switching computers.', faqOfflineQ: 'Does it work offline?', faqOfflineA: 'Yes. A verified lifetime license has a 14-day offline grace period and validates again when you reconnect.', faqRefundQ: 'What happens after a refund?', faqRefundA: 'The license is revoked, but Floatline never deletes your local library or progress.', faqSourceQ: 'Is Floatline free or open-source software?', faqSourceA: 'No. Floatline is paid proprietary software with a 7-day full trial. A lifetime license is required to keep using the full feature set after the trial. The application source is private and is not released under an open-source license.',
     dlKicker: 'DOWNLOAD', dlTitle: 'Start listening now', dlSub: 'macOS (Apple Silicon) · Windows build coming · Full 7-day trial',
     dlMac: 'Official installer after review', dlSrc: 'GitHub',
     dlNote: 'Official builds will be published in public GitHub Releases after payment review and signing',

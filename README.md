@@ -22,7 +22,10 @@ Floatline is a desktop reading and accessibility app for macOS and Windows. It r
 - Local-first library and reading progress
 
 ## license
-- 许可证最多同时激活 2 台 macOS 或 Windows 设备
+
+- Floatline 是付费专有软件，不是开源或免费软件。
+- 许可证最多同时激活 2 台 macOS 或 Windows 设备。
+- Floatline is paid proprietary software, not open-source or freeware.
 
 ## Release status
 
@@ -38,8 +41,8 @@ Floatline does not require an account. Imported content, the library, and readin
 
 ## Repository scope
 
-这个公开仓库仅用于官网、产品信息与正式安装包发布，不包含 Floatline 应用源码。
+这个公开仓库仅用于官网、产品信息与正式安装包发布，不包含 Floatline 应用源码。应用源码与官方构建保留所有权利。
 
-This public repository contains the product website, public information, and future release assets. It does not contain the Floatline application source code.
+This public repository contains the product website, public information, and future release assets. It does not contain the Floatline application source code. All rights to the application source and official builds are reserved.
 
 © 2026 Floatline
