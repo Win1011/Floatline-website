@@ -3,7 +3,7 @@
 **把电子书、博客和长文变成可听、可看的桌面字幕。**  
 Turn ebooks, articles, and long-form text into synchronized desktop subtitles.
 
-[官方网站 / Website](https://win1011.github.io/Floatline-website/) · [发布状态 / Release status](#release-status) · [价格 / Pricing](#pricing)
+[官方网站 / Website](https://win1011.github.io/Floatline-website/) · [发布状态 / Release status](#release-status) · [许可证 / License](#license)
 
 Floatline 是一款面向 macOS 与 Windows 的桌面听读工具。导入 EPUB、网页文章、Markdown、TXT 或粘贴文本后，它会使用自然语音逐句朗读，并通过置顶浮窗同步显示当前句和中英翻译。
 
