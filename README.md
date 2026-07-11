@@ -21,11 +21,7 @@ Floatline is a desktop reading and accessibility app for macOS and Windows. It r
 - Always-on-top subtitles, sentence highlighting, translation, and resume
 - Local-first library and reading progress
 
-## Pricing
-
-- 早鸟价：¥49 / US$6.99
-- 正式价：¥68 / US$9.99
-- 一次性购买，不是订阅
+## license
 - 许可证最多同时激活 2 台 macOS 或 Windows 设备
 
 ## Release status
