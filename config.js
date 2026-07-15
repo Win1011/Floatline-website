@@ -1,4 +1,3 @@
-// Test Mode only: Dodo does not process real charges at this URL.
-// Replace it with the live checkout URL after merchant approval.
+// Public live checkout URL. No merchant credentials belong in this file.
 window.FLOATLINE_CHECKOUT_URL = window.FLOATLINE_CHECKOUT_URL ||
-  'https://test.checkout.dodopayments.com/buy/pdt_0Niwodse4lJ1YxEy1hCry?quantity=1';
+  'https://checkout.dodopayments.com/buy/pdt_0NjESN21j4v0MZxBmqKy4?quantity=1';

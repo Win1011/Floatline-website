@@ -31,7 +31,7 @@ Floatline is a desktop reading and accessibility app for macOS and Windows. It r
 
 Floatline 正在完成支付平台审核与正式安装包准备。为了避免向用户提供未签名或仍连接测试支付环境的构建，当前暂不公开安装包。审核完成后，正式的 macOS 与 Windows 安装包会发布在本仓库的 **Releases** 页面。
 
-Floatline is completing payment-provider review and preparing signed production installers. No installer is published yet so users are not given an unsigned build or one connected to a test checkout. Official macOS and Windows builds will appear in this repository's **Releases** after review.
+Floatline's live checkout is approved and connected to its production license flow. Official macOS and Windows builds are published through this repository's **Releases**.
 
 ## Privacy
 
