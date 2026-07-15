@@ -379,7 +379,7 @@
   </h1>
   <p class="sub rv" data-i18n="heroSub">把 EPUB、博客文章或任意文本扔进来，Floatline 用自然人声逐句朗读，一个永远置顶的液态玻璃浮窗同步显示当前句和实时翻译——边工作，边听读。</p>
   <div class="cta rv">
-    <a class="btn primary" href="#download" data-i18n="ctaDownload">查看发布进度</a>
+    <a class="btn primary" href="#download" data-i18n="ctaDownload">下载试用版</a>
     <button class="btn" type="button" data-buy data-i18n="ctaBuy">购买永久版</button>
     <a class="btn" href="#how" data-i18n="ctaHow">看看怎么用 ↓</a>
   </div>
@@ -494,7 +494,7 @@
       <p data-i18n="priceDesc">一个永久许可证，最多同时激活 2 台 macOS 或 Windows 设备。</p>
       <div class="buy-row">
         <button class="btn primary" type="button" data-buy data-i18n="ctaBuy">购买永久版</button>
-        <a class="btn" href="#download" data-i18n="priceTrial">查看发布进度</a>
+        <a class="btn" href="#download" data-i18n="priceTrial">下载试用版</a>
       </div>
       <p class="note" data-checkout-note data-i18n="checkoutPending">购买通道正在开通</p>
     </article>
@@ -525,13 +525,13 @@
   <div class="dl-panel rv">
     <div class="kicker" data-i18n="dlKicker">DOWNLOAD</div>
     <h2 class="sec" data-i18n="dlTitle">现在就开始听读</h2>
-    <p class="sec-sub" data-i18n="dlSub">macOS（Apple Silicon）· Windows 构建即将到来 · 完整试用 7 天</p>
+    <p class="sec-sub" data-i18n="dlSub">macOS（Apple Silicon / Intel）· Windows · 完整试用 7 天</p>
     <div class="cta">
-      <a class="btn primary disabled" aria-disabled="true" data-i18n="dlMac">正式安装包审核后发布</a>
+      <a class="btn primary" href="https://github.com/Win1011/Floatline-website/releases/latest" data-i18n="dlMac">下载 macOS / Windows</a>
       <button class="btn" type="button" data-buy data-i18n="ctaBuy">购买永久版</button>
       <a class="btn" href="https://github.com/Win1011/Floatline-website" data-i18n="dlSrc">GitHub</a>
     </div>
-    <p class="note" style="margin-top:16px; font-size:12.5px; color:var(--text-3)" data-i18n="dlNote">v2.0 · 3 MB 安装包 · 不联网也能用（翻译与神经语音除外）</p>
+    <p class="note" style="margin-top:16px; font-size:12.5px; color:var(--text-3)" data-i18n="dlNote">v2.0 · 官方签名安装包 · 支持自动更新</p>
   </div>
 </section>
 
@@ -561,7 +561,7 @@ const I18N = {
     badge: '让阅读，变成聆听',
     heroPre: '让你的', heroComma: '', heroPost: '浮在', heroEm: '你的桌面上',
     heroSub: '把 EPUB、博客、播客或任意文本扔进来，Floatline 用自然人声逐句朗读，一个永远置顶的液态玻璃浮窗同步显示当前句和实时翻译——边工作，边听读。',
-    ctaDownload: '查看发布进度', ctaBuy: '购买永久版', ctaHow: '看看怎么用 ↓',
+    ctaDownload: '下载试用版', ctaBuy: '购买永久版', ctaHow: '看看怎么用 ↓',
     heroNote: '完整试用 7 天 · 本地优先 · 无需注册 · 内置语音',
     mockToc: '目录',
     featKicker: 'FEATURES', featTitle: '听读，不用切窗口', featSub: '为一边工作、一边阅读的人设计的每一个细节',
@@ -581,13 +581,13 @@ const I18N = {
     s2t: '按下播放', s2p: '自然人声逐句朗读，正文同步高亮滚动，每句下面是实时翻译。语速、声音随时换，还能试听。',
     s3t: '开浮窗，去干活', s3p: '字幕浮窗置顶在屏幕任何角落，最小化主窗口继续工作。眼睛偶尔一瞥，一句都不会漏。',
     priceKicker: 'PRICING', priceTitle: '试过喜欢，再买断', priceSub: '7 天完整试用，不阉割功能；一次购买，永久使用',
-    priceLabel: '国区限时早鸟价', priceNow: '¥19.9', priceLater: '正式价 ¥68', priceDesc: '一个永久许可证，最多同时激活 2 台 macOS 或 Windows 设备。', priceTrial: '查看发布进度',
+    priceLabel: '国区限时早鸟价', priceNow: '¥19.9', priceLater: '正式价 ¥68', priceDesc: '一个永久许可证，最多同时激活 2 台 macOS 或 Windows 设备。', priceTrial: '下载试用版',
     priceFeature1: '全部功能永久使用', priceFeature2: '同时激活 2 台设备，可停用后换电脑', priceFeature3: 'Apple Pay、微信支付、银行卡等方式由结账页按地区提供', priceFeature4: '短暂断网可继续使用，书库和进度始终保留',
     checkoutPending: '购买通道正在开通',
     faqKicker: 'FAQ', faqTitle: '购买前，你可能想知道', faqTrialQ: '7 天后会删除我的书和进度吗？', faqTrialA: '不会。试用结束只会暂停导入、阅读、播放和字幕浮窗，书库与阅读进度一直保留。', faqDevicesQ: '可以用几台电脑？', faqDevicesA: '最多同时激活 2 台 Mac 或 Windows 设备。换电脑前可在设置里停用旧设备。', faqOfflineQ: '断网还能使用吗？', faqOfflineA: '可以。已验证的永久许可证提供 14 天离线宽限，重新联网后会自动验证。', faqRefundQ: '退款后会怎样？', faqRefundA: '退款后许可证会失效，但本地书库和进度不会被删除。', faqSourceQ: 'Floatline 是免费或开源软件吗？', faqSourceA: '不是。Floatline 是付费专有软件，提供 7 天完整试用；试用结束后需要购买永久许可证才能继续使用完整功能。应用源码不公开，也不采用开源许可证。',
-    dlKicker: 'DOWNLOAD', dlTitle: '现在就开始听读', dlSub: 'macOS（Apple Silicon）· Windows 构建即将到来 · 完整试用 7 天',
-    dlMac: '正式安装包审核后发布', dlSrc: 'GitHub',
-    dlNote: '支付审核与正式签名完成后，在公开 GitHub Releases 发布',
+    dlKicker: 'DOWNLOAD', dlTitle: '现在就开始听读', dlSub: 'macOS（Apple Silicon / Intel）· Windows · 完整试用 7 天',
+    dlMac: '下载 macOS / Windows', dlSrc: 'GitHub',
+    dlNote: 'v2.0 · 官方签名安装包 · 支持自动更新',
     footMade: '用 ❤️ 和液态玻璃打造',
   },
   en: {
@@ -595,7 +595,7 @@ const I18N = {
     badge: 'Turn reading into listening',
     heroPre: 'Every ', heroComma: ',', heroPost: 'floating ', heroEm: 'on your desktop',
     heroSub: 'Drop in an EPUB, a blog, a podcast, or any text. Floatline reads it aloud with natural neural voices while an always-on-top liquid-glass panel shows the current sentence and its live translation — listen while you work.',
-    ctaDownload: 'View release status', ctaBuy: 'Buy lifetime', ctaHow: 'See how it works ↓',
+    ctaDownload: 'Download trial', ctaBuy: 'Buy lifetime', ctaHow: 'See how it works ↓',
     heroNote: '7-day full trial · Local-first · No account · Built-in voices',
     mockToc: 'Chapters',
     featKicker: 'FEATURES', featTitle: 'Listen without switching windows', featSub: 'Every detail designed for reading on the side',
@@ -615,13 +615,13 @@ const I18N = {
     s2t: 'Press play', s2p: 'Natural narration sentence by sentence, synchronized highlighting, live translation under each line. Swap voice and speed any time.',
     s3t: 'Open the float & get to work', s3p: 'The subtitle panel stays on top in any corner. Minimize the app and keep working — a glance is all it takes.',
     priceKicker: 'PRICING', priceTitle: 'Try everything. Buy once.', priceSub: 'A full 7-day trial, then one purchase for lifetime use',
-    priceLabel: 'LIMITED EARLY BIRD', priceNow: '$6.99', priceLater: '$9.99 later', priceDesc: 'One lifetime license for up to 2 active macOS or Windows devices.', priceTrial: 'View release status',
+    priceLabel: 'LIMITED EARLY BIRD', priceNow: '$6.99', priceLater: '$9.99 later', priceDesc: 'One lifetime license for up to 2 active macOS or Windows devices.', priceTrial: 'Download trial',
     priceFeature1: 'Every feature, forever', priceFeature2: '2 active devices; deactivate one when changing computers', priceFeature3: 'Apple Pay, WeChat Pay, cards, and other methods appear by region in checkout', priceFeature4: 'Offline grace for short outages; your library and progress always stay local',
     checkoutPending: 'Checkout is being activated',
     faqKicker: 'FAQ', faqTitle: 'Before you buy', faqTrialQ: 'Will my books or progress be deleted after 7 days?', faqTrialA: 'No. Trial expiry pauses importing, reading, playback, and the float window. Your library and progress remain intact.', faqDevicesQ: 'How many computers can I use?', faqDevicesA: 'Up to 2 active Mac or Windows devices. Deactivate the old device in Settings before switching computers.', faqOfflineQ: 'Does it work offline?', faqOfflineA: 'Yes. A verified lifetime license has a 14-day offline grace period and validates again when you reconnect.', faqRefundQ: 'What happens after a refund?', faqRefundA: 'The license is revoked, but Floatline never deletes your local library or progress.', faqSourceQ: 'Is Floatline free or open-source software?', faqSourceA: 'No. Floatline is paid proprietary software with a 7-day full trial. A lifetime license is required to keep using the full feature set after the trial. The application source is private and is not released under an open-source license.',
-    dlKicker: 'DOWNLOAD', dlTitle: 'Start listening now', dlSub: 'macOS (Apple Silicon) · Windows build coming · Full 7-day trial',
-    dlMac: 'Official installer after review', dlSrc: 'GitHub',
-    dlNote: 'Official builds will be published in public GitHub Releases after payment review and signing',
+    dlKicker: 'DOWNLOAD', dlTitle: 'Start listening now', dlSub: 'macOS (Apple Silicon / Intel) · Windows · Full 7-day trial',
+    dlMac: 'Download macOS / Windows', dlSrc: 'GitHub',
+    dlNote: 'v2.0 · Official signed installers · Automatic updates',
     footMade: 'Made with ❤️ and liquid glass',
   },
 };
