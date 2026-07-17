@@ -5,7 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Floatline — 把文字变成桌面字幕 · Turn text into desktop subtitles</title>
 <meta name="description" content="把电子书、博客和长文变成可听、可看的桌面字幕。微软神经语音朗读，中英双语对照，本地优先，仅 6MB。" />
+<link rel="canonical" href="https://win1011.github.io/Floatline-website/" />
+<meta name="robots" content="index,follow,max-image-preview:large" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Floatline" />
+<meta property="og:title" content="Floatline — Turn text into desktop subtitles" />
+<meta property="og:description" content="Listen to ebooks, real web articles, podcasts, and transcripts with a native desktop subtitle window." />
+<meta property="og:url" content="https://win1011.github.io/Floatline-website/" />
+<meta property="og:locale" content="zh_CN" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Floatline — Desktop subtitles for everything you read" />
+<meta name="twitter:description" content="A local-first desktop reader with natural voices, search, export, backups, and global shortcuts." />
 <link rel="icon" href="icon.svg" type="image/svg+xml" />
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Floatline","url":"https://win1011.github.io/Floatline-website/","applicationCategory":"MultimediaApplication","operatingSystem":"macOS, Windows","description":"A local-first desktop reader that turns ebooks, web articles, podcasts, and text into narrated desktop subtitles.","offers":{"@type":"Offer","price":"6.99","priceCurrency":"USD"}}</script>
 <script>/* mark JS availability before any styles hide content */document.documentElement.classList.add('js');</script>
 <style>
   :root {
@@ -468,7 +480,8 @@
       <span class="tag">📝 Markdown</span><span class="tag">📄 TXT</span><span class="tag">📋 <span data-i18n="tagPaste">粘贴文本</span></span>
       <span class="tag">🌐 HTML</span><span class="tag">🎧 <span data-i18n="tagPodcast">播客</span></span>
       <span class="tag">🎙 <span data-i18n="tagAudio">音频转写</span></span><span class="tag">🗂 <span data-i18n="tagMulti">批量导入</span></span>
-      <span class="tag">🌗 <span data-i18n="tagTheme">深浅色</span></span><span class="tag">🀄️ / 🅰️ <span data-i18n="tagUI">双语界面</span></span>
+      <span class="tag">🔎 <span data-i18n="tagSearch">全文搜索</span></span><span class="tag">⌨️ <span data-i18n="tagShortcuts">全局快捷键</span></span>
+      <span class="tag">💾 <span data-i18n="tagBackup">导出与备份</span></span><span class="tag">🌗 <span data-i18n="tagTheme">深浅色</span></span><span class="tag">🌍 <span data-i18n="tagUI">8 种界面语言</span></span>
     </div>
   </div>
 </section>
@@ -517,6 +530,7 @@
     <details class="rv"><summary data-i18n="faqDevicesQ">可以用几台电脑？</summary><p data-i18n="faqDevicesA">最多同时激活 2 台 Mac 或 Windows 设备。换电脑前可在设置里停用旧设备。</p></details>
     <details class="rv"><summary data-i18n="faqOfflineQ">断网还能使用吗？</summary><p data-i18n="faqOfflineA">可以。已验证的永久许可证提供 14 天离线宽限，重新联网后会自动验证。</p></details>
     <details class="rv"><summary data-i18n="faqRefundQ">退款后会怎样？</summary><p data-i18n="faqRefundA">退款后许可证会失效，但本地书库和进度不会被删除。</p></details>
+    <details class="rv"><summary data-i18n="faqPrivacyQ">我的内容会上传吗？</summary><p data-i18n="faqPrivacyA">书库、进度、转写结果和备份默认保存在本机。网页导入只请求你提交的网址；使用在线翻译或神经语音时，仅发送完成该功能所需的当前文本。</p></details>
     <details class="rv"><summary data-i18n="faqSourceQ">Floatline 是免费或开源软件吗？</summary><p data-i18n="faqSourceA">不是。Floatline 是付费专有软件，提供 7 天完整试用；试用结束后需要购买永久许可证才能继续使用完整功能。应用源码不公开，也不采用开源许可证。</p></details>
   </div>
 </section>
@@ -572,9 +586,9 @@ const I18N = {
     f4t: '中英双语对照', f4p: '每一句下面实时显示翻译，逐句本地缓存，读过的句子不再重复请求。',
     f5t: '三种浮窗模式', f5p: '桌面歌词式单行、只看当前句、或带上下文——双击浮窗即可播放暂停。',
     modeMini: '单行', modeMin: '极简', modeCtx: '上下文',
-    f6t: '断点续听 + 点句即播', f6p: '每份内容精确记住读到哪一句，点开即续。正文里点任何一句，就从那句开始朗读；空格播放暂停，方向键上一句/下一句。',
+    f6t: '搜索、导出与全局控制', f6p: '内容库和正文都能搜索，转写可导出 TXT / Markdown 或整库备份；不切回 App 也能用全局快捷键控制播放。',
     artResume1: '《黑客与画家》 · 第 8 章 · 31%', artResume2: '继续 ▸',
-    tagBlog: '博客链接', tagPaste: '粘贴文本', tagMulti: '批量导入', tagTheme: '深浅色', tagUI: '双语界面',
+    tagBlog: '真实网页', tagPaste: '粘贴文本', tagMulti: '批量导入', tagTheme: '深浅色', tagUI: '8 种界面语言', tagSearch: '全文搜索', tagShortcuts: '全局快捷键', tagBackup: '导出与备份',
     tagPodcast: '播客', tagAudio: '音频转写',
     howKicker: 'HOW IT WORKS', howTitle: '三步，把内容搬上桌面',
     s1t: '扔进来', s1p: '把 EPUB 拖进窗口，或粘贴一个博客链接。章节、目录、封面自动解析——连 InDesign 导出的单文件电子书也能按目录拆章。',
@@ -584,10 +598,11 @@ const I18N = {
     priceLabel: '国区限时早鸟价', priceNow: '¥19.9', priceLater: '正式价 ¥68', priceDesc: '一个永久许可证，最多同时激活 2 台 macOS 或 Windows 设备。', priceTrial: '下载试用版',
     priceFeature1: '全部功能永久使用', priceFeature2: '同时激活 2 台设备，可停用后换电脑', priceFeature3: 'Apple Pay、微信支付、银行卡等方式由结账页按地区提供', priceFeature4: '短暂断网可继续使用，书库和进度始终保留',
     checkoutPending: '购买通道正在开通',
-    faqKicker: 'FAQ', faqTitle: '购买前，你可能想知道', faqTrialQ: '7 天后会删除我的书和进度吗？', faqTrialA: '不会。试用结束只会暂停导入、阅读、播放和字幕浮窗，书库与阅读进度一直保留。', faqDevicesQ: '可以用几台电脑？', faqDevicesA: '最多同时激活 2 台 Mac 或 Windows 设备。换电脑前可在设置里停用旧设备。', faqOfflineQ: '断网还能使用吗？', faqOfflineA: '可以。已验证的永久许可证提供 14 天离线宽限，重新联网后会自动验证。', faqRefundQ: '退款后会怎样？', faqRefundA: '退款后许可证会失效，但本地书库和进度不会被删除。', faqSourceQ: 'Floatline 是免费或开源软件吗？', faqSourceA: '不是。Floatline 是付费专有软件，提供 7 天完整试用；试用结束后需要购买永久许可证才能继续使用完整功能。应用源码不公开，也不采用开源许可证。',
+    faqKicker: 'FAQ', faqTitle: '购买前，你可能想知道', faqTrialQ: '7 天后会删除我的书和进度吗？', faqTrialA: '不会。试用结束只会暂停导入、阅读、播放和字幕浮窗，书库与阅读进度一直保留。', faqDevicesQ: '可以用几台电脑？', faqDevicesA: '最多同时激活 2 台 Mac 或 Windows 设备。换电脑前可在设置里停用旧设备。', faqOfflineQ: '断网还能使用吗？', faqOfflineA: '可以。已验证的永久许可证提供 14 天离线宽限，重新联网后会自动验证。', faqRefundQ: '退款后会怎样？', faqRefundA: '退款后许可证会失效，但本地书库和进度不会被删除。', faqPrivacyQ: '我的内容会上传吗？', faqPrivacyA: '书库、进度、转写结果和备份默认保存在本机。网页导入只请求你提交的网址；使用在线翻译或神经语音时，仅发送完成该功能所需的当前文本。', faqSourceQ: 'Floatline 是免费或开源软件吗？', faqSourceA: '不是。Floatline 是付费专有软件，提供 7 天完整试用；试用结束后需要购买永久许可证才能继续使用完整功能。应用源码不公开，也不采用开源许可证。',
     dlKicker: 'DOWNLOAD', dlTitle: '现在就开始听读', dlSub: 'macOS（Apple Silicon / Intel）· Windows · 完整试用 7 天',
     dlMac: '下载 macOS / Windows', dlSrc: 'GitHub',
     dlNote: 'v2.0 · 官方安装包 · 支持自动更新',
+    footTagline: '把电子书、博客和播客变成桌面字幕', footRights: '保留所有权利',
     footMade: '用 ❤️ 和液态玻璃打造',
   },
   en: {
@@ -606,9 +621,9 @@ const I18N = {
     f4t: 'Bilingual EN ⇄ ZH', f4p: 'A live translation under every sentence, cached locally so nothing is fetched twice.',
     f5t: 'Three float modes', f5p: 'Desktop-lyrics single line, current sentence only, or with context — double-click the panel to play/pause.',
     modeMini: 'Line', modeMin: 'Minimal', modeCtx: 'Context',
-    f6t: 'Resume + click-to-play', f6p: 'Every item remembers the exact sentence. Click any sentence in the text to start there; Space to play/pause, arrows to jump.',
+    f6t: 'Search, export & global control', f6p: 'Search your library or full text, export transcripts as TXT / Markdown, back up everything, and control playback without switching back to the app.',
     artResume1: 'Hackers & Painters · Ch. 8 · 31%', artResume2: 'Continue ▸',
-    tagBlog: 'Blog URLs', tagPaste: 'Pasted text', tagMulti: 'Batch import', tagTheme: 'Light & dark', tagUI: 'Bilingual UI',
+    tagBlog: 'Real web pages', tagPaste: 'Pasted text', tagMulti: 'Batch import', tagTheme: 'Light & dark', tagUI: '8 UI languages', tagSearch: 'Full-text search', tagShortcuts: 'Global shortcuts', tagBackup: 'Export & backup',
     tagPodcast: 'Podcasts', tagAudio: 'Audio → text',
     howKicker: 'HOW IT WORKS', howTitle: 'Three steps to your desktop',
     s1t: 'Drop it in', s1p: 'Drag an EPUB in or paste a blog URL. Chapters, TOC and cover are parsed automatically — even single-file InDesign ebooks get split by their anchors.',
@@ -618,10 +633,11 @@ const I18N = {
     priceLabel: 'LIMITED EARLY BIRD', priceNow: '$6.99', priceLater: '$9.99 later', priceDesc: 'One lifetime license for up to 2 active macOS or Windows devices.', priceTrial: 'Download trial',
     priceFeature1: 'Every feature, forever', priceFeature2: '2 active devices; deactivate one when changing computers', priceFeature3: 'Apple Pay, WeChat Pay, cards, and other methods appear by region in checkout', priceFeature4: 'Offline grace for short outages; your library and progress always stay local',
     checkoutPending: 'Checkout is being activated',
-    faqKicker: 'FAQ', faqTitle: 'Before you buy', faqTrialQ: 'Will my books or progress be deleted after 7 days?', faqTrialA: 'No. Trial expiry pauses importing, reading, playback, and the float window. Your library and progress remain intact.', faqDevicesQ: 'How many computers can I use?', faqDevicesA: 'Up to 2 active Mac or Windows devices. Deactivate the old device in Settings before switching computers.', faqOfflineQ: 'Does it work offline?', faqOfflineA: 'Yes. A verified lifetime license has a 14-day offline grace period and validates again when you reconnect.', faqRefundQ: 'What happens after a refund?', faqRefundA: 'The license is revoked, but Floatline never deletes your local library or progress.', faqSourceQ: 'Is Floatline free or open-source software?', faqSourceA: 'No. Floatline is paid proprietary software with a 7-day full trial. A lifetime license is required to keep using the full feature set after the trial. The application source is private and is not released under an open-source license.',
+    faqKicker: 'FAQ', faqTitle: 'Before you buy', faqTrialQ: 'Will my books or progress be deleted after 7 days?', faqTrialA: 'No. Trial expiry pauses importing, reading, playback, and the float window. Your library and progress remain intact.', faqDevicesQ: 'How many computers can I use?', faqDevicesA: 'Up to 2 active Mac or Windows devices. Deactivate the old device in Settings before switching computers.', faqOfflineQ: 'Does it work offline?', faqOfflineA: 'Yes. A verified lifetime license has a 14-day offline grace period and validates again when you reconnect.', faqRefundQ: 'What happens after a refund?', faqRefundA: 'The license is revoked, but Floatline never deletes your local library or progress.', faqPrivacyQ: 'Is my content uploaded?', faqPrivacyA: 'Your library, progress, transcripts, and backups stay on your device by default. Web import only requests the URL you submit; online translation and neural speech send only the current text needed for that feature.', faqSourceQ: 'Is Floatline free or open-source software?', faqSourceA: 'No. Floatline is paid proprietary software with a 7-day full trial. A lifetime license is required to keep using the full feature set after the trial. The application source is private and is not released under an open-source license.',
     dlKicker: 'DOWNLOAD', dlTitle: 'Start listening now', dlSub: 'macOS (Apple Silicon / Intel) · Windows · Full 7-day trial',
     dlMac: 'Download macOS / Windows', dlSrc: 'GitHub',
     dlNote: 'v2.0 · Official installers · Automatic updates',
+    footTagline: 'Turn ebooks, articles, and podcasts into desktop subtitles', footRights: 'All rights reserved',
     footMade: 'Made with ❤️ and liquid glass',
   },
 };
