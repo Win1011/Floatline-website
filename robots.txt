@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://win1011.github.io/Floatline-website/sitemap.xml
+Sitemap: https://floatline.app/sitemap.xml
