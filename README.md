@@ -3,7 +3,7 @@
 **把电子书、博客和长文变成可听、可看的桌面字幕。**  
 Turn ebooks, articles, and long-form text into synchronized desktop subtitles.
 
-[官方网站 / Website](https://win1011.github.io/Floatline-website/) · [发布状态 / Release status](#release-status) · [许可证 / License](#license)
+[官方网站 / Website](https://floatline.top/) · [发布状态 / Release status](#release-status) · [许可证 / License](#license)
 
 Floatline 是一款面向 macOS 与 Windows 的桌面听读工具。导入 EPUB、网页文章、Markdown、TXT 或粘贴文本后，它会使用自然语音逐句朗读，并通过置顶浮窗同步显示当前句和中英翻译。
 
@@ -38,6 +38,22 @@ Floatline's live checkout is approved and connected to its production license fl
 Floatline 不要求注册账户。导入内容、书库和阅读进度默认保存在本地。翻译和在线神经语音功能仅在使用时访问相应网络服务。
 
 Floatline does not require an account. Imported content, the library, and reading progress stay on the user's device by default. Translation and online neural voice features contact their respective services only when used.
+
+## Custom domain
+
+官网绑定自定义域名 **[floatline.top](https://floatline.top/)**（GitHub Pages）。
+
+在腾讯云 DNSPod 添加以下 DNS 记录：
+
+| Type | Name | Value |
+|------|------|-------|
+| A | `@` | `185.199.108.153` |
+| A | `@` | `185.199.109.153` |
+| A | `@` | `185.199.110.153` |
+| A | `@` | `185.199.111.153` |
+| CNAME | `www` | `win1011.github.io` |
+
+然后在 GitHub 仓库 **Settings → Pages → Custom domain** 填入 `floatline.top`，勾选 **Enforce HTTPS**。DNS 生效后全球即可通过 `https://floatline.top` 访问。
 
 ## Repository scope
 
