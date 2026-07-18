@@ -648,7 +648,7 @@ const store = {
   set(k, v) { try { localStorage.setItem(k, v); } catch { /* ignore */ } },
 };
 let lang = store.get('fl-site-lang') || ((navigator.language || '').startsWith('zh') ? 'zh' : 'en');
-let theme = store.get('fl-site-theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+let theme = store.get('fl-site-theme') || 'light';
 
 const checkoutURL = String(window.FLOATLINE_CHECKOUT_URL || '').trim();
 const checkoutReady = /^https:\/\//i.test(checkoutURL);
