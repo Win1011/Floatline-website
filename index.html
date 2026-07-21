@@ -319,6 +319,21 @@
     background: conic-gradient(from 0deg, transparent, var(--accent-soft), transparent 30%);
     animation: spin 9s linear infinite; }
   @keyframes spin { to { transform: rotate(1turn); } }
+  /* one big auto-detected button; every other build sits in the quiet row below it */
+  .dl-main { display: flex; gap: 12px; justify-content: center; align-items: stretch; flex-wrap: wrap; margin-top: 32px; }
+  .dl-primary { padding: 13px 30px; gap: 13px; border-radius: 18px; text-align: left; }
+  .dl-primary > svg { width: 23px; height: 23px; flex: none; }
+  .dl-tt { display: flex; flex-direction: column; line-height: 1.28; }
+  .dl-tt strong { font-size: 15.5px; font-weight: 750; letter-spacing: -.01em; }
+  .dl-tt small { font-size: 11.5px; font-weight: 500; opacity: .84; }
+  .dl-alts { display: flex; gap: 4px 10px; justify-content: center; flex-wrap: wrap; margin-top: 22px; }
+  .dl-alts .lbl { font-size: 12.5px; color: var(--text-3); align-self: center; }
+  .dl-alts a { display: inline-flex; align-items: center; gap: 7px; text-decoration: none;
+    font-size: 12.5px; font-weight: 600; color: var(--text-2); padding: 7px 13px; border-radius: 99px;
+    border: 1px solid transparent; transition: background .18s, border-color .18s, color .18s; }
+  .dl-alts a:hover { color: var(--text); background: var(--glass); border-color: var(--border-2); }
+  .dl-alts a svg { width: 14px; height: 14px; opacity: .7; flex: none; }
+  .dl-alts a .sz { color: var(--text-3); font-weight: 500; }
 
   /* ===== pricing + faq ===== */
   .pricing-grid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(250px, .75fr); gap: 18px; margin-top: 42px; }
@@ -540,12 +555,12 @@
     <div class="kicker" data-i18n="dlKicker">DOWNLOAD</div>
     <h2 class="sec" data-i18n="dlTitle">现在就开始听读</h2>
     <p class="sec-sub" data-i18n="dlSub">macOS（Apple Silicon / Intel）· Windows · 完整试用 7 天</p>
-    <div class="cta">
-      <a class="btn primary" href="https://github.com/Win1011/Floatline-website/releases/latest" data-i18n="dlMac">下载 macOS / Windows</a>
+    <div class="dl-main">
+      <a class="btn primary dl-primary" id="dlPrimary" href="#" download></a>
       <button class="btn" type="button" data-buy data-i18n="ctaBuy">购买永久版</button>
-      <a class="btn" href="https://github.com/Win1011/Floatline-website" data-i18n="dlSrc">GitHub</a>
     </div>
-    <p class="note" style="margin-top:16px; font-size:12.5px; color:var(--text-3)" data-i18n="dlNote">v2.1 · 官方安装包 · 支持自动更新</p>
+    <div class="dl-alts" id="dlAlts"></div>
+    <p class="note" style="margin-top:18px; font-size:12.5px; color:var(--text-3)" data-i18n="dlNote">v2.1 · 官方安装包 · 支持自动更新</p>
   </div>
 </section>
 
@@ -601,7 +616,10 @@ const I18N = {
     checkoutPending: '购买通道正在开通',
     faqKicker: 'FAQ', faqTitle: '购买前，你可能想知道', faqTrialQ: '7 天后会删除我的书和进度吗？', faqTrialA: '不会。试用结束只会暂停导入、阅读、播放和字幕浮窗，书库与阅读进度一直保留。', faqDevicesQ: '可以用几台电脑？', faqDevicesA: '最多同时激活 2 台 Mac 或 Windows 设备。换电脑前可在设置里停用旧设备。', faqOfflineQ: '断网还能使用吗？', faqOfflineA: '可以。已验证的永久许可证提供 14 天离线宽限，重新联网后会自动验证。', faqRefundQ: '退款后会怎样？', faqRefundA: '退款后许可证会失效，但本地书库和进度不会被删除。', faqPrivacyQ: '我的内容会上传吗？', faqPrivacyA: '书库、进度、转写结果和备份默认保存在本机。网页导入只请求你提交的网址；使用在线翻译或神经语音时，仅发送完成该功能所需的当前文本。', faqSourceQ: 'Floatline 是免费或开源软件吗？', faqSourceA: '不是。Floatline 是付费专有软件，提供 7 天完整试用；试用结束后需要购买永久许可证才能继续使用完整功能。应用源码不公开，也不采用开源许可证。',
     dlKicker: 'DOWNLOAD', dlTitle: '现在就开始听读', dlSub: 'macOS（Apple Silicon / Intel）· Windows · 完整试用 7 天',
-    dlMac: '下载 macOS / Windows', dlSrc: 'GitHub',
+    dlBtnMac: '下载 Mac 版', dlBtnWin: '下载 Windows 版',
+    dlMetaMacArm: 'Apple 芯片 · {size} · v{v}', dlMetaMacIntel: 'Intel 芯片 · {size} · v{v}', dlMetaWin: 'Windows 10/11 · {size} · v{v}',
+    dlAltMacArm: 'Apple 芯片 Mac', dlAltMacIntel: 'Intel 芯片 Mac', dlAltWin: 'Windows 安装版', dlAltMsi: 'Windows MSI',
+    dlOther: '其他版本', dlMobile: '请在电脑上打开本页下载安装包',
     dlNote: 'v2.1 · 官方安装包 · 支持自动更新',
     footTagline: '把电子书、博客和播客变成桌面字幕', footRights: '保留所有权利', navContact: '联系我们', footContact: '有问题？发邮件到',
     footMade: '用 ❤️ 和液态玻璃打造',
@@ -636,7 +654,10 @@ const I18N = {
     checkoutPending: 'Checkout is being activated',
     faqKicker: 'FAQ', faqTitle: 'Before you buy', faqTrialQ: 'Will my books or progress be deleted after 7 days?', faqTrialA: 'No. Trial expiry pauses importing, reading, playback, and the float window. Your library and progress remain intact.', faqDevicesQ: 'How many computers can I use?', faqDevicesA: 'Up to 2 active Mac or Windows devices. Deactivate the old device in Settings before switching computers.', faqOfflineQ: 'Does it work offline?', faqOfflineA: 'Yes. A verified lifetime license has a 14-day offline grace period and validates again when you reconnect.', faqRefundQ: 'What happens after a refund?', faqRefundA: 'The license is revoked, but Floatline never deletes your local library or progress.', faqPrivacyQ: 'Is my content uploaded?', faqPrivacyA: 'Your library, progress, transcripts, and backups stay on your device by default. Web import only requests the URL you submit; online translation and neural speech send only the current text needed for that feature.', faqSourceQ: 'Is Floatline free or open-source software?', faqSourceA: 'No. Floatline is paid proprietary software with a 7-day full trial. A lifetime license is required to keep using the full feature set after the trial. The application source is private and is not released under an open-source license.',
     dlKicker: 'DOWNLOAD', dlTitle: 'Start listening now', dlSub: 'macOS (Apple Silicon / Intel) · Windows · Full 7-day trial',
-    dlMac: 'Download macOS / Windows', dlSrc: 'GitHub',
+    dlBtnMac: 'Download for Mac', dlBtnWin: 'Download for Windows',
+    dlMetaMacArm: 'Apple silicon · {size} · v{v}', dlMetaMacIntel: 'Intel · {size} · v{v}', dlMetaWin: 'Windows 10/11 · {size} · v{v}',
+    dlAltMacArm: 'Mac (Apple silicon)', dlAltMacIntel: 'Mac (Intel)', dlAltWin: 'Windows installer', dlAltMsi: 'Windows MSI',
+    dlOther: 'Other builds', dlMobile: 'Open this page on your computer to download',
     dlNote: 'v2.1 · Official installers · Automatic updates',
     footTagline: 'Turn ebooks, articles, and podcasts into desktop subtitles', footRights: 'All rights reserved', navContact: 'Contact', footContact: 'Questions? Email',
     footMade: 'Made with ❤️ and liquid glass',
@@ -661,12 +682,66 @@ document.querySelectorAll('[data-buy]').forEach((button) => {
 });
 if (checkoutReady) document.querySelectorAll('[data-checkout-note]').forEach((node) => { node.hidden = true; });
 
+/* ================= downloads ================= */
+/* The detected build gets the big button and links straight at the installer, so
+   nobody lands on a release page full of .sig files. Bump DL_VER + DL_TAG on each
+   release — the version is baked into every filename. */
+const DL_VER = '2.1.0';
+const DL_TAG = 'app-v2.1.0';
+const DL_URL = 'https://github.com/Win1011/Floatline-website/releases/download/' + DL_TAG + '/';
+const DL_SVG = {
+  mac: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.365 1.43c0 1.14-.42 2.2-1.25 3.04-.87.9-1.9 1.42-3.02 1.34-.03-1.1.44-2.24 1.24-3.06.83-.86 2.05-1.44 3.03-1.32zM20.6 17.2c-.55 1.28-.82 1.85-1.53 2.98-.99 1.58-2.39 3.55-4.12 3.56-1.54.02-1.93-1-4.02-.99-2.09.01-2.52 1.01-4.06.99-1.73-.01-3.05-1.79-4.04-3.37C.06 15.9-.24 10.7 1.47 8.03c1.22-1.9 3.14-3.01 4.95-3.01 1.84 0 3 1.01 4.52 1.01 1.48 0 2.38-1.01 4.51-1.01 1.61 0 3.32.88 4.54 2.4-3.99 2.19-3.34 7.89.61 9.78z"/></svg>',
+  win: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M0 3.45 9.75 2.1v9.45H0V3.45zm10.95-1.5L24 0v11.55H10.95V1.95zM0 12.75h9.75v9.45L0 20.85v-8.1zm10.95 0H24V24l-13.05-1.8v-9.45z"/></svg>',
+};
+const DL_BUILDS = {
+  macArm: { os: 'mac', file: 'Floatline_' + DL_VER + '_aarch64.dmg',   size: '7.5 MB', btn: 'dlBtnMac', meta: 'dlMetaMacArm',   alt: 'dlAltMacArm' },
+  macX64: { os: 'mac', file: 'Floatline_' + DL_VER + '_x64.dmg',       size: '7.8 MB', btn: 'dlBtnMac', meta: 'dlMetaMacIntel', alt: 'dlAltMacIntel' },
+  win:    { os: 'win', file: 'Floatline_' + DL_VER + '_x64-setup.exe', size: '6.9 MB', btn: 'dlBtnWin', meta: 'dlMetaWin',      alt: 'dlAltWin' },
+  winMsi: { os: 'win', file: 'Floatline_' + DL_VER + '_x64_en-US.msi', size: '7.9 MB', btn: 'dlBtnWin', meta: 'dlMetaWin',      alt: 'dlAltMsi' },
+};
+const DL_UA = navigator.userAgent || '';
+const DL_PLAT = (navigator.userAgentData && navigator.userAgentData.platform) || navigator.platform || '';
+const DL_MOBILE = /Android|iPhone|iPad|iPod/i.test(DL_UA);
+/* Safari reports "Intel" on every Mac, so read the GPU string instead. Apple
+   silicon is the safer default when WebGL is blocked — it is the common case. */
+function dlAppleSilicon() {
+  try {
+    const gl = document.createElement('canvas').getContext('webgl');
+    const ext = gl && gl.getExtension('WEBGL_debug_renderer_info');
+    return !/intel/i.test(ext ? String(gl.getParameter(ext.UNMASKED_RENDERER_WEBGL)) : '');
+  } catch { return true; }
+}
+const DL_PICK = (/Win/i.test(DL_PLAT) || /Windows/i.test(DL_UA)) ? 'win'
+  : (/Mac/i.test(DL_PLAT) || /Mac OS X/i.test(DL_UA)) ? (dlAppleSilicon() ? 'macArm' : 'macX64')
+  : 'macArm';
+
+function renderDownloads() {
+  const d = I18N[lang];
+  const primary = document.getElementById('dlPrimary');
+  const alts = document.getElementById('dlAlts');
+  if (!primary || !alts) return;
+  const b = DL_BUILDS[DL_PICK];
+  primary.href = DL_URL + b.file;
+  primary.setAttribute('download', b.file);
+  primary.innerHTML = DL_SVG[b.os] + '<span class="dl-tt"><strong>' + d[b.btn] + '</strong><small>'
+    + (d[b.meta] || '').replace('{size}', b.size).replace('{v}', DL_VER) + '</small></span>';
+  alts.innerHTML = '<span class="lbl">' + d.dlOther + '</span>'
+    + Object.keys(DL_BUILDS).filter((k) => k !== DL_PICK).map((k) => {
+      const o = DL_BUILDS[k];
+      return '<a href="' + DL_URL + o.file + '" download="' + o.file + '">' + DL_SVG[o.os]
+        + '<span>' + d[o.alt] + '</span><span class="sz">' + o.size + '</span></a>';
+    }).join('');
+  const note = document.querySelector('[data-i18n="dlNote"]');
+  if (note && DL_MOBILE) note.textContent = d.dlMobile;
+}
+
 function applyLang() {
   const d = I18N[lang];
   document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
   document.querySelectorAll('[data-i18n]').forEach((el) => { const k = el.dataset.i18n; if (d[k] !== undefined) el.textContent = d[k]; });
   document.querySelectorAll('[data-i18n-html]').forEach((el) => { const k = el.dataset.i18nHtml; if (d[k] !== undefined) el.innerHTML = d[k]; });
   document.getElementById('langBtn').textContent = lang === 'zh' ? 'EN' : '中';
+  renderDownloads();
   restartType();
 }
 function applyTheme() { document.documentElement.dataset.theme = theme; }
